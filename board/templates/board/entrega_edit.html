@@ -1,0 +1,17 @@
+{% extends 'board/base.html' %}
+
+{% block content %}
+
+	 <div class="page-header">
+	<h1>Entrega</h1>
+	{% if user.is_authenticated %}
+
+	{% endif %}
+	</div>
+	{{form.media}}
+    <form method="POST" class="post-form">{% csrf_token %}
+        {{ form.as_p}}
+        <button type="submit" class="save btn btn-default">Save</button>
+    </form>
+
+{% endblock %}

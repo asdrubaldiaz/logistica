@@ -1,0 +1,50 @@
+{% extends 'board/base.html' %}
+
+{% block content %}
+
+       
+
+      
+
+	 <div class="page-header">
+		<h1>{{ entrega.barco }}</h1>
+		  {% if user.is_authenticated %}
+		 <a class="btn btn-default" href="{% url 'entrega_edit' pk=entrega.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+		<a class="btn btn-default" href="{% url 'entrega_remove' pk=entrega.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+		
+		{% endif %}
+		</div>
+		 {% if entrega.fecha_entrega %}
+     
+             <p>Fecha Entrega:   {{ entrega.fecha_entrega|linebreaksbr }}</p>
+         
+        {% endif %}
+	   <p>{{ entrega.entregador|linebreaksbr }}</p>
+		<p>{{ entrega.status|linebreaksbr }}</p>
+        <p>{{ entrega.agencia|linebreaksbr }}</p>
+		<p>{{ entrega.ubicacion|linebreaksbr }}</p>
+		<p>{{ published_date|linebreaksbr }}</p>
+		<p >Ultima Modificacion Hecha por: {{ entrega.author}}</p>
+
+<hr>
+<a class="btn btn-default" href="{% url 'add_comment_to_entrega' pk=entrega.pk %}">Agregar Comentario</a>
+{% for comment in entrega.comments.all %}
+<div class="row">
+<div class="col-sm-1">
+<div class="thumbnail">
+<img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+</div><!-- /thumbnail -->
+</div><!-- /col-sm-1 -->
+<div class="col-sm-5">
+<div class="panel panel-default">
+<div class="panel-heading">
+{{ comment.created_date }}
+        <strong>{{ comment.author }}</strong>
+        <p>{{ comment.text|linebreaks }}</p>
+    </div></div></div></div>
+{% empty %}
+    <p>Sin Comentarios:(</p>
+{% endfor %}
+
+
+{% endblock %}

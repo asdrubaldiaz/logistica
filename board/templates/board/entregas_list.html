@@ -1,0 +1,54 @@
+{% extends 'board/base.html' %}
+{% block content %}
+{% load staticfiles %}
+    
+
+<div class="w3-container">
+	<table class="w3-table-all">
+
+		<thead>
+		<tr class="w3-red">
+			<th>#</th>
+			<th>Barco</th>
+            <th>Agencia</th>
+			<th>Fecha Entrega</th>
+			<th>Entregador</th>
+			<th>Status</th>
+			<th>Ubicacion</th>
+			<th><span class="glyphicon glyphicon-envelope"></span></th>
+		</thead>
+
+	
+	
+{% for entrega in entregas %}
+		<tr>
+			<td><a href="{% url 'entrega_detail' pk=entrega.pk %}">{{ entrega.entrega }}</a>
+			
+			
+			{% if entrega.sogas == True %}
+					<img src="{% static 'images/koronakis.png' %}" ></img>
+					{% endif %}
+			{% if entrega.pinturas == True %}
+					<img src="{% static 'images/cmp.png' %}" ></img>
+					{% endif %}					
+			
+			</div>
+			<td><a href="{% url 'entrega_detail' pk=entrega.pk %}">{{ entrega.barco }}</a></div>
+			<td>{{ entrega.agencia }}</td>
+            <td>{{ entrega.fecha_entrega }}</td>
+			<td>{{ entrega.entregador}}</div>
+			<td>{{ entrega.status}}</div>
+			<td>{{ entrega.ubicacion}}</div>
+			<td> <a href="{% url 'entrega_detail' pk=entrega.pk %}">
+          <span class="glyphicon glyphicon-envelope"></span>
+ {{ entrega.comments.count }}</a></div>
+		</tr>
+	
+{% endfor %}
+ 
+	</table>
+ </div>
+
+
+{% endblock %}
+

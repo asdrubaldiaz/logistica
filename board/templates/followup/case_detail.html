@@ -1,0 +1,11 @@
+{% block content %}
+    <div class="post">
+        {% if case.published_date %}
+            <div class="date">
+                {{ case.published_date }}
+            </div>
+        {% endif %}
+        <h1>{{ case.referencia }}</h1>
+        <p>{{ case.barco|linebreaksbr }}</p>
+    </div>
+{% endblock %}

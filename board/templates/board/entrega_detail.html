@@ -1,0 +1,60 @@
+{% extends 'board/base.html' %}
+
+{% block content %}
+
+       
+
+      
+
+	 <div class="page-header">
+		<h1>M/V{{ entrega.barco }}</h1>
+		  {% if user.is_authenticated %}
+		 <a class="btn btn-default" href="{% url 'entrega_edit' pk=entrega.pk %}">Editar<span class="glyphicon glyphicon-pencil"></span></a>
+		{% if user.username == 'projectuno' %}
+		<a class="btn btn-default" href="{% url 'entrega_remove' pk=entrega.pk %}">Eliminar<span class="glyphicon glyphicon-remove"></span></a>
+		{% endif %}
+		{% endif %}
+		</div>
+		<div class="w3-container">
+<div class="w3-responsive">
+	<table class="w3-table-all">
+		
+		{% if entrega.fecha_entrega %}
+			
+          <tr >  <td>Fecha Entrega:</td><td>   {{ entrega.fecha_entrega|linebreaksbr }}</td></tr>
+         
+        {% endif %}
+		
+		<tr>  <td>Entregador:</td><td>   {{ entrega.entregador|linebreaksbr }}</td></tr>
+		<tr>  <td>Status:</td><td>   {{ entrega.status|linebreaksbr }}</td></tr>
+        <tr>  <td>Agencia:</td><td>   {{ entrega.agencia|linebreaksbr }}</td></tr>
+		<tr>  <td>Ubicacion:</td><td>   {{ entrega.ubicacion|linebreaksbr }}</td></tr>
+		<tr>  <td>Creado:</td><td>   {{ published_date|linebreaksbr }}</td></tr>
+		<tr>  <td>Ultima Modificacion:</td><td>   {{ entrega.author}}</td></tr>
+</table>
+</div>
+<hr>
+{% if user.is_authenticated %}
+<a class="btn btn-default" href="{% url 'add_comment_to_entrega' pk=entrega.pk %}">Agregar Comentario</a><br><br><br>
+		{% endif %}
+{% for comment in entrega.comments.all %}
+<div class="row">
+<div class="col-sm-1">
+<div class="thumbnail">
+<img class="img-responsive user-photo" src="/static/images/users/{{comment.author}}.png">
+</div><!-- /thumbnail -->
+</div><!-- /col-sm-1 -->
+<div class="col-sm-5">
+<div class="panel panel-default">
+<div class="panel-heading">
+{{ comment.created_date }}
+        <strong>{{ comment.author }}</strong>
+        <p>{{ comment.text|linebreaks }}</p>
+    </div></div></div></div>
+{% empty %}
+    <p>Sin Comentarios:(</p>
+{% endfor %}
+
+
+{% endblock %}
+</div>

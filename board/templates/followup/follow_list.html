@@ -1,0 +1,23 @@
+{% load staticfiles %}
+
+<html>
+    <head>
+ <link rel="stylesheet" href="{% static 'css/test.css' %}">
+
+    </head>
+    <body>
+	
+<div>
+    <h1>PLAIN OL HTML</a></h1>
+	     <a href="{% url 'case_new' %}" ><span class="glyphicon glyphicon-plus">sdasdasd</span></a>
+</div>
+
+{% for case in cases %}
+    <div>
+        <h1><a href="{% url 'case_detail' pk=case.pk %}">{{ case.referencia }}</a></h1>
+        
+        <p>{{ case.barco|linebreaksbr }}</p>
+    </div>
+{% endfor %}
+    </body>
+</html>
